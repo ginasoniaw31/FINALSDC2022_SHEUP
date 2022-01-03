@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Virasschool</title>
+
+    <!-- Favicons -->
+    <link href="/static/upload/images/favicon.png" rel="icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/frontend/css/bot.css">
+
+</head>
+
+<body>
+
+    <!-- ======= Bot Section ======= -->
+    <section id="bot"> 
+                <div id="chatbox">
+                    <p class="botText"><span>Hai! saya Virasschool</span></p>
+                </div>
+                <form id="userInput">
+                    <input id="textInput" type="text" name="msg" placeholder="Message" required>
+                    <button class="buttonInput">Kirim</button>
+                </form> 
+
+                <script>
+                    function bot_answer() {
+                        var rawText = $("#textInput").val();
+                        var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+                        $("#textInput").val("");
+                        $("#chatbox").append(userHtml);
+                        document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+                        $.get("/get", { msg: rawText }).done(function (data) {
+                            var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+                            $("#chatbox").append(botHtml);
+                            document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+                        });
+                    }
+                    $("#textInput").keypress(function (e) {
+                        if (e.which == 13) {
+                            bot_answer();
+                        }
+                    });
+                    $("#buttonInput").click(function () {
+                        bot_answer();
+                    })
+                </script>
+    </section>
+    ​
+</body>
+
+</html>
